@@ -35,11 +35,7 @@
 		}
 		
 		header.title, section.demo { text-align: center }
-		
-		.mathbox-hidden {
-			display: none;
-			visibility: hidden;
-		}
+
 	</style>
 </head>
 <body>
@@ -52,26 +48,7 @@
 	</div>
 	-->
 	
-  <div class='mathbox-hidden'>
-    <span class='mathbox-label' id="point-label-stub">P</span>
-		<span class='mathbox-label' id='projected-point-label-stub'>Projection of P</span>
-  </div>
-	
-  <script>
-/*
-    pointLabelStub = document.querySelector('#point-label-stub');
-		projectedPointLabelStub = document.querySelector('#projected-point-label-stub');
-
-    // Define local DOM handler to clone real DOM elements
-    var clone = MathBox.DOM.createClass({
-      render: function (el, props, children) {
-        var pointLabel = children.cloneNode(true);
-				pointLabel.innerHTML += "<sub>" + props.i + "</sub>";
-        return pointLabel;
-      },
-    });
-*/
-	
+  <script>	
     // Define global DOM handler to format indexed point labels into an HTML span
 		MathBox.DOM.Types.pointLabel = MathBox.DOM.createClass({
 			render: function(el) {
