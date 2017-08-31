@@ -52,19 +52,8 @@
     // Define global DOM handler to format indexed point labels into an HTML span
 		MathBox.DOM.Types.pointLabel = MathBox.DOM.createClass({
 			render: function(el) {
-				this.props.innerHTML = (this.props.hasOwnProperty('pointConstant')) ? this.props.pointConstant : 'P';
+				this.props.innerHTML = (this.props.hasOwnProperty('pointConstant')) ? this.props.pointConstant : 'A';
 				this.props.innerHTML += (this.props.hasOwnProperty('i')) ? "<sub>" + this.props.i + "</sub>" : '';
-				return el('span', this.props);
-			}
-		});
-		
-    // Do the same thing for projections of points in a plane
-		MathBox.DOM.Types.projectedPointLabel = MathBox.DOM.createClass({
-			render: function(el) {
-				this.props.innerHTML = "Projection of ";
-				this.props.innerHTML += (this.props.hasOwnProperty('pointConstant')) ? this.props.pointConstant : 'P';
-				this.props.innerHTML += (this.props.hasOwnProperty('pointIndex')) ? "<sub>" + this.props.pointIndex + "</sub> in the plane " : '';
-				this.props.innerHTML += this.props.projectedOnPlane;
 				return el('span', this.props);
 			}
 		});
@@ -126,15 +115,15 @@
     view
       .axis({
         axis: "x",
-        width: 1,
+        width: 2,
       })
       .axis({
         axis: "y",
-        width: 1,
+        width: 2,
       })
 			.axis({
 				axis: "z",
-				width: 1,
+				width: 2,
 			})
 			.grid({
 				width: 1,
@@ -177,19 +166,16 @@
       colors: "#colors",
     });
 		
-// Points P0, P1
+// Vector a
     view.array({
 			data: [
-				[7, 2, 1],	// P0 
-				[2, 8, 8],	// P1
-				[7, 8, 1],	// Q
-				[2, 2, 1]
+				[1, -4, 1],	// P0 
 			],	
 			channels: 3, // necessary
 			live: false,
 		})
-		.point({
-      colors: "#colors",
+		.vector({
+      colors: "#EE#C01D7DAAAA",
       size: 10,
     })
 		.html({
@@ -210,200 +196,6 @@
       pointerEvents: true,
     });	
 		
-		view.array({
-			data: [
-				[2, 8, 1],	// Proj of P1 on z = 1
-			],
-			channels: 3,
-			live: false,
-		})
-		.point({
-			color: "#AAA",
-			size: 10,
-			opacity: 0.5,
-		})
-		.html({
-			width: 15,
-			height: 5,
-			depth: 2,
-			expr: function(emit, el, i, j) {
-				emit(el('projectedPointLabel', {
-					pointIndex: '1',
-					projectedOnPlane: "z = 1"
-				}));
-			}
-		})
-    .dom({
-      snap: false,
-      offset: [-32, 0],
-      depth: 0,
-      size: 10,
-      zoom: 1,
-      outline: 1,
-      pointerEvents: true,
-    });
-		
-		
-// Lines (grey) indicating projection
-		// Top of rectangle
-		view.array({
-			data: [
-				[2, 2, 8],
-				[7, 2, 8],
-				[7, 8, 8],
-				[2, 8, 8],
-				[2, 2, 8],
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		// Bottom of rectangle
-		view.array({
-			data: [
-				[2, 2, 1],
-				[7, 2, 1],
-				[7, 8, 1],
-				[2, 8, 1],
-				[2, 2, 1]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		// Corners
-		view.array({
-			data: [
-				[7, 2, 1],
-				[7, 2, 8]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		view.array({
-			data: [
-				[2, 2, 1],
-				[2, 2, 8]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		view.array({
-			data: [
-				[7, 8, 1],
-				[7, 8, 8]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		view.array({
-			data: [
-				[2, 8, 1],
-				[2, 8, 8]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3,
-			stroke: "dashed",
-		});
-		
-		// P0-P1
-		view.array({
-			data: [
-				[7, 2, 1],
-				[2, 8, 8]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-		});
-		
-		// P0-P1 Projection
-		view.array({
-			data: [
-				[7, 2, 1],
-				[2, 8, 1]
-			],
-			channels: 3,
-			live: false
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.6,
-		});
-		
-		// Right-angle symbol 
-		view.array({
-			data: [
-				[2+(1/Math.SQRT2), 8-(1/Math.SQRT2), 1],
-				[2+(1/Math.SQRT2), 8-(1/Math.SQRT2), 2],
-				[2, 8, 2]
-			],
-			channels: 3,
-			live: false,
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3
-		});
-		
-		// Right-angle symbol 
-		view.array({
-			data: [
-				[7, 7, 1],
-				[6, 7, 1],
-				[6, 8, 1]
-			],
-			channels: 3,
-			live: false,
-		})
-		.line({
-			width: 2,
-			color: "#555",
-			opacity: 0.3
-		});
 		
 // Debug
 /*
