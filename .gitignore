@@ -1,1 +1,4 @@
 *.private
+_site
+Gemfile
+Gemfile.lock
