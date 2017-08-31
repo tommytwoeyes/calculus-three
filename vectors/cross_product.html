@@ -107,7 +107,7 @@
       focus: 3
     })
     .cartesian({
-      range: [[-10, 10], [-10, 10], [-10, 10]],
+      range: [[-10, 10], [-10, 10], [-15, 15]],
       scale: [1, 1, 1],
     });
 
@@ -132,16 +132,46 @@
 				opacity: 0.3,
 		});
 		
-    var ticks =
-      view.ticks({
-        width: 5,
-        size: 15,
-        color: 'black',
-      });
+		// X-Axis
+		view.scale({
+			axis: "x",
+			divide: 20,
+		})
+		.ticks({
+			width: 2,
+			size: 6,
+			color: '0x555555',
+		});
+		// Y-Axis
+		view.scale({
+			axis: "y",
+			divide: 20,
+		})
+		.ticks({
+			width: 2,
+			size: 6,
+			color: 0x555555,
+		});
+		// Z-Axis
+		view.scale({
+			axis: "z",
+			divide: 30,
+		})
+		.ticks({
+			width: 2,
+			size: 6,
+			color: 0x555555,
+		})
+		.text({
+			expr: function(emit, i, j) {
+				emit(i, j);
+			}
+		})
+		.label({});
 		
     mathbox.select('axis')
       .set('end', true)
-      .set('width', 5)
+      .set('width', 1)
       .bind('depth', function(t){
           return .5 + .5 * Math.sin(t * .5);
       })
@@ -156,7 +186,7 @@
 		
 		// Axis labels
     view.array({
-      data: [[10.2,0,0], [0,10.2,0], [0.2,0.2,10.5]],
+      data: [[10.2,0,0], [0,10.2,0], [0.2,0.2,15.5]],
       channels: 3, // necessary
       live: false,
     }).text({
@@ -166,6 +196,24 @@
       colors: "#colors",
     });
 		
+		// Graph Title: "Cross Product"
+		view.array({
+			id: 'title',
+			channels: 3,
+			items: 1,
+			live: false,
+			data: [[0, 0, 20]],
+		})
+		.text({
+			data: ["Cross Product"],
+		})
+		.label({
+			offset: [0, 0],
+			color: 0x222222,
+			outline: 0,
+			size: 28,
+		});
+		
 // Vector a
     view.array({
 			id: 'vector_a_points',
@@ -173,14 +221,56 @@
 				[0, 0, 0],
 				[1, -4, 1],	
 			],	
+			items: 2,
 			channels: 3, // necessary
 			live: false,
 		})
 		.vector({
-			points: '#vector_a_points',
-      colors: "#EE#C01D7DAAAA",
-      width: 2,
-			start: true,
+      color: 0xC01D7D,
+      width: 3,
+			size: 3,
+      end: true,
+			visible: true,
+    });
+		
+
+// Vector b
+    view.array({
+			id: 'vector_b_points',
+			data: [
+				[0, 0, 0],
+				[2, 3, 0],	
+			],	
+			items: 2,
+			channels: 3, // necessary
+			live: false,
+		})
+		.vector({
+      color: 0x03A9F4,
+      width: 3,
+			size: 3,
+      end: true,
+			visible: true,
+    });
+		
+
+// Vector a x b
+    view.array({
+			id: 'cross_product_points',
+			data: [
+				[0, 0, 0],
+				[-3, 2, 11],	
+			],	
+			items: 2,
+			channels: 3, // necessary
+			live: false,
+		})
+		.vector({
+      color: 0x111111,
+      width: 3,
+			size: 3,
+      end: true,
+			visible: true,
     });
 //		.html({
 //			width: 15,
