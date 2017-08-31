@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Distance Formula in 3D with MathBox</title>
-  <script src="/calculus-three/build/mathbox-bundle.js"></script>
-  <link rel="stylesheet" href="/calculus-three/build/mathbox.css">
+  <title>Cross Product Demo with MathBox</title>
+  <script src="../build/mathbox-bundle.js"></script>
+  <link rel="stylesheet" href="../build/mathbox.css">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<style>
 		body {
@@ -168,33 +168,37 @@
 		
 // Vector a
     view.array({
+			id: 'vector_a_points',
 			data: [
-				[1, -4, 1],	// P0 
+				[0, 0, 0],
+				[1, -4, 1],	
 			],	
 			channels: 3, // necessary
 			live: false,
 		})
 		.vector({
+			points: '#vector_a_points',
       colors: "#EE#C01D7DAAAA",
-      size: 10,
-    })
-		.html({
-			width: 15,
-			height: 5,
-			depth: 2,
-			expr: function(emit, el, i, j) {
-				emit( el('pointLabel', {i: i}) );
-			}
-		})
-    .dom({
-      snap: false,
-      offset: [32, 0],
-      depth: 0,
-      size: 10,
-      zoom: 1,
-      outline: 1,
-      pointerEvents: true,
-    });	
+      width: 2,
+			start: true,
+    });
+//		.html({
+//			width: 15,
+//			height: 5,
+//			depth: 2,
+//			expr: function(emit, el, i, j) {
+//				emit( el('pointLabel', {i: i}) );
+//			}
+//		})
+//    .dom({
+//      snap: false,
+//      offset: [32, 0],
+//      depth: 0,
+//      size: 10,
+//      zoom: 1,
+//      outline: 1,
+//      pointerEvents: true,
+//    });	
 		
 		
 // Debug
