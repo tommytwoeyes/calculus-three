@@ -46,6 +46,15 @@ body {
   text-align: center;
   border-bottom: .05rem solid #e5e5e5;
 }
+.jumbotron.yellow {
+	background-color: #F4BB33;
+}
+.jumbotron h1.display-3 {
+	color: white;
+}
+.jumbotron p {
+	color: #F4BB33;
+}
 .jumbotron .btn {
   padding: .75rem 1.5rem;
   font-size: 1.5rem;
